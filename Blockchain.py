@@ -25,7 +25,7 @@ class Blockchain(object):
 
         block = {
             'index': len(self.chain) + 1,
-            'timestamp': time(),
+            'timestamp': 1506816000000,
             'transactions': self.current_transactions,
             'proof': proof,
             'previous_hash': previous_hash or self.hash(self.chain[-1]),
@@ -169,6 +169,6 @@ def full_chain():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='127.0.0.1', port=5001, debug=True)
 
 
