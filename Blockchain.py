@@ -114,10 +114,7 @@ blockchain = Blockchain()
 # Calculate the Proof of Work
 # Reward the miner (us) by adding a transaction granting us 1 coin
 # Forge the new Block by adding it to the chain
-<<<<<<< HEAD
-# creating this to change author
-=======
->>>>>>> b662f5701afb7c6319fe60b2c1aed57b28ac48d6
+
 def mine():
     # We run the proof of work algorithm to get the next proof...
     last_block = blockchain.last_block
