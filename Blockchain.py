@@ -113,12 +113,15 @@ class Blockchain(object):
         return guess_hash[:4] == "0000"
 
     def valid_chain(self, chain):
+        #is responsible for checking if a chain is valid by looping through
+        # each block and verifying both the hash and the proof.
         """
         Determine if a given blockchain is valid
         :param chain: <list> A blockchain
         :return: <bool> True if valid, False if not
         """
-
+        variable1 = ""
+        variable2 = ""
         last_block = chain[0]
         current_index = 1
 
@@ -129,12 +132,18 @@ class Blockchain(object):
             print("\n-----------\n")
             # Check that the hash of the block is correct
             if block['previous_hash'] != self.hash(last_block):
+                variable1 = "false"
+                print("\nprevious hash different from last block\n")
                 return False
 
             # Check that the Proof of Work is correct
             if not self.valid_proof(last_block['proof'], block['proof']):
+                print("\nPoW not correct\n")
+                variable2 = "false"
                 return False
-
+            print(f' {variable1}')
+            print(f' {variable2}')
+            print("\nCheck the state\n")
             last_block = block
             current_index += 1
 
@@ -196,9 +205,12 @@ def mine():
     proof = blockchain.proof_of_work(last_block)
 
     # We must receive a reward for finding the proof.
+    # Genesis Block is the name of the first block of Bitcoin ever minded. thus called "Genesis"
+    # The Genesis Block forms the foundation of the entire Bitcoin trading system and is the prototype of
+    # all other block in the blockchain
     # The sender is "0" to signify that this node has mined a new coin.
     blockchain.new_transaction(
-        sender="0",
+        sender="Genesis",
         recipient=node_identifier,
         # the recipient of mined block is the address of our own node
         amount=1,
@@ -273,6 +285,7 @@ def consensus():
         }
     else:
         response = {
+            'replace': replaced,
             'message': 'Our chain is authoritative',
             'chain': blockchain.chain
         }
